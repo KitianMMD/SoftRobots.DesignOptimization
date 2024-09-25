@@ -53,6 +53,8 @@ The following plugins are mandatory:
 
 Additionally, we need to go to the SofaPython3 GitHub repository. Then, scroll down and on the right-hand side, we will find the "Releases" section. We must enter this section and download the version of SOFA that is compatible with our PC.
 
+After running the runSofa command in the terminal, we need to go to the top left section, select "Edit", then go to "Plugin Manager", and add the appropriate version of Python3.
+
 Please refer to the following [tutorial](https://www.sofa-framework.org/community/doc/getting-started/build/linux/) for a complete overview of the installation process.
 
 
