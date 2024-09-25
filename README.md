@@ -57,7 +57,13 @@ After running the runSofa command in the terminal, we need to go to the top left
 
 Please refer to the following [tutorial](https://www.sofa-framework.org/community/doc/getting-started/build/linux/) for a complete overview of the installation process.
 
+## LaTeX
 
+To ensure that the graphics use consistent fonts and render correctly in documents, you may need to install LaTeX along with its required packages. Run the following command:
+```bash
+sudo apt-get install texlive texlive-latex-extra texlive-fonts-recommended dvipng
+```
+This will install the necessary tools and fonts for generating high-quality PDF documents and graphics with uniform fonts in LaTeX.
 
 # Quick Start <a name="quickstart"></a>
 
