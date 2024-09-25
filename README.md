@@ -51,6 +51,8 @@ The following plugins are mandatory:
 * [SofaPython3](https://github.com/sofa-framework/SofaPython3)
 * [SoftRobots](https://github.com/SofaDefrost/SoftRobots)
 
+Additionally, we need to go to the SofaPython3 GitHub repository. Then, scroll down and on the right-hand side, we will find the "Releases" section. We must enter this section and download the version of SOFA that is compatible with our PC.
+
 Please refer to the following [tutorial](https://www.sofa-framework.org/community/doc/getting-started/build/linux/) for a complete overview of the installation process.
 
 
