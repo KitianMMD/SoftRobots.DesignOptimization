@@ -65,6 +65,21 @@ sudo apt-get install texlive texlive-latex-extra texlive-fonts-recommended dvipn
 ```
 This will install the necessary tools and fonts for generating high-quality PDF documents and graphics with uniform fonts in LaTeX.
 
+## Bash
+
+To run the simulations, we need to add the Python path in the Linux shell. We will do this as follows:
+
+```bash
+nano ~/.zshrc
+```
+After entering the path, we need the following 2 lines of code to be present in the end:
+
+```bash
+export PATH=/home/optimizacion/SOFA_v24.06.00_Linux/bin:$PATH
+export PYTHONPATH=/home/optimizacion/SOFA_v24.06.00_Linux/plugins/SofaPython3/lib/python3/site-packages/:$PYTHONPATH
+```
+Where we need to highlight two important things: first, that the version of Sofa being used is v24.06.00, and second, that the following path must be present in the path exactly as follows: .../plugins/SofaPython3/lib/python3/site-packages/:$PYTHONPATH.
+
 # Quick Start <a name="quickstart"></a>
 
 ## Soft Robot Modeling for Design Optimization
