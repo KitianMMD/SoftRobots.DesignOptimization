@@ -44,7 +44,11 @@ Both this libraries can be installed using the following bash command:
 ```bash
 pip install gmsh==4.11.1 optuna==2.10.0 SQLALchemy==1.4.44 matplotlib
 ```
-
+## SQLIFE3
+To be able to visualize the optimization simulations, it is necessary to have the sqlite3 dependency installed, and for that, you need to run the following command in the terminal.
+```bash
+sudo apt-get install sqlite3
+```
 ## SOFA and mandatory plugins
 This toolbox was tested with the SOFA v22.12 installation. 
 The following plugins are mandatory:
