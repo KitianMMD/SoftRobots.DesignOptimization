@@ -290,7 +290,7 @@ class GmshDesignOptimization(BaseConfig):
             gmsh.finalize()
             return full_filename
 
-        # Cancel the process if it takes too much time
+        # Cancel the process if it takes too much time #VERLOOOOOO
         args = {
             "mode": mode,
             "refine": refine,
@@ -336,7 +336,7 @@ class GmshDesignOptimization(BaseConfig):
         gmsh.finalize()
 
     #@staticmethod
-    def run_with_timeout(self, target_func, args, timeout):
+    def run_with_timeout(self, target_func, args, timeout): #VERLOOOOOOO
         """
         Run a specified function and return an error if it takes too much time.
         ----------

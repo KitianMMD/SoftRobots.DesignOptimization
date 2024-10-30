@@ -12,6 +12,15 @@ __date__ = "Oct 28 2022"
 import argparse
 import pathlib
 import importlib
+import os
+
+directorio = "/home/optimizacion/SoftRobots.DesignOptimization/Models/SensorFinger/Meshes"
+#'/SoftRobots.DesignOptimization/Models/SensorFinger'
+
+try:
+  os.stat(directorio)
+except:
+  os.mkdir(directorio)
 
 
 def main(args=None):
@@ -103,6 +112,7 @@ def main(args=None):
         if args.simulation_option not in simulation_options:
             args.simulation_option = "ba"
         simulate_lib.simulate(Config, id_config=id_config, design_choice = args.simulation_option, solver_library_name=args.solver_library, solver_name=args.solver_name)       
+
 
 
 if __name__ == "__main__":
