@@ -44,7 +44,11 @@ Both this libraries can be installed using the following bash command:
 ```bash
 pip install gmsh==4.11.1 optuna==2.10.0 SQLALchemy==1.4.44 matplotlib
 ```
-
+## SQLITE3
+To be able to visualize the optimization simulations, it is necessary to have the sqlite3 dependency installed, and for that, you need to run the following command in the terminal.
+```bash
+sudo apt-get install sqlite3
+```
 ## SOFA and mandatory plugins
 This toolbox was tested with the SOFA v22.12 installation. 
 The following plugins are mandatory:
@@ -64,6 +68,21 @@ To ensure that the graphics use consistent fonts and render correctly in documen
 sudo apt-get install texlive texlive-latex-extra texlive-fonts-recommended dvipng
 ```
 This will install the necessary tools and fonts for generating high-quality PDF documents and graphics with uniform fonts in LaTeX.
+
+## Bash
+
+To run the simulations, we need to add the Python path in the Linux shell. We will do this as follows:
+
+```bash
+nano ~/.zshrc
+```
+After entering the path, we need the following 2 lines of code to be present in the end:
+
+```bash
+export PATH=/home/optimizacion/SOFA_v24.06.00_Linux/bin:$PATH
+export PYTHONPATH=/home/optimizacion/SOFA_v24.06.00_Linux/plugins/SofaPython3/lib/python3/site-packages/:$PYTHONPATH
+```
+Where we need to highlight two important things: first, that the version of Sofa being used is v24.06.00, and second, that the following path must be present in the path exactly as follows: .../plugins/SofaPython3/lib/python3/site-packages/:$PYTHONPATH.
 
 # Quick Start <a name="quickstart"></a>
 
