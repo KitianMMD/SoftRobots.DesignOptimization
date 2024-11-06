@@ -55,8 +55,12 @@ def optimize(config, id_config, n_iter, solver_library_name, solver_name, plot_r
     solver.display_results(problem_name, storage_name, config)
 
     # Plot results
-    if plot_results:      
+    if plot_results:
+        import matplotlib.pyplot as plt
+        from matplotlib import rc
+        rc('text', usetex=True)
         solver.plot_results(problem_name, storage_name, config)
+
 
 
 def check_path(path):

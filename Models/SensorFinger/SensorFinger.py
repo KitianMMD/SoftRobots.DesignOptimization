@@ -24,7 +24,8 @@ class FitnessEvaluationController(BaseFitnessEvaluationController):
 
         super(FitnessEvaluationController,self).__init__(*args, **kwargs)
 
-        self.ModelNode = self.rootNode.model        
+        self.ModelNode = self.rootNode.model     
+           
         self.CableConstraint = self.ModelNode.cables.cable1.CableConstraint
         self.ReferenceMO = self.rootNode.ReferenceMONode.ReferenceMO
         self.StartPosition = np.array(self.ReferenceMO.position.value[0])

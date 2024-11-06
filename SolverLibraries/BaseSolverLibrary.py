@@ -77,6 +77,7 @@ class BaseSolverLibrary(object):
 
     @staticmethod
     def plot_results(self, problem_name, storage_name, config):
+       
         """
         This function plot optimization hsitory
         ----------

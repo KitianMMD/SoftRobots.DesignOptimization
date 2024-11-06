@@ -145,28 +145,31 @@ def analyse_sensitivity(config, id_config, n_samples_per_param, method = "OAaT",
         if plot_results:    
 
             def plot_sensitivities(sensitivities):
-                import matplotlib.pyplot as plt     
+                import matplotlib.pyplot as plt
+                from matplotlib import rc
+                # Habilitar LaTeX para texto en matplotlib
+                rc('text', usetex=True)
                 width = 0.2    
                 fig, ax = plt.subplots() 
                 for i in range(len(sensitivities)):
                     normalization = sum(map(abs, sensitivities[i]))
-                    height = [sentivity/normalization for sentivity in sensitivities[i]]
-                    #print("Normalization", normalization)
+                    height = [sensitivity / normalization for sensitivity in sensitivities[i]]
                     print("Height", height)
                     bars = name_variables
                     y_pos = np.arange(len(bars))
-                    ax.bar(y_pos + i * width, height, width = width, label = name_objectives[i])
-                    plt.xticks(y_pos, bars)
-                plt.title("Local sensitivity (%)")
-                plt.legend()
-                fig.autofmt_xdate()
-                if id_config != None:
-                    name_file = config.model_name + "_" + str(id_config) + "_" + method + "_" + str(n_samples_per_param)
-                else:
-                    name_file = config.model_name + "_" + method + "_" + str(n_samples_per_param)
-
-                plt.savefig(check_path(str(pathlib.Path(__file__).parent.absolute()) + "/SensitivityResults/" + config.model_name) + "/" + name_file)
-                plt.show() 
+                    ax.bar(y_pos + i * width, height, width=width, label=r'$' + name_objectives[i] + '$')  # LaTeX en la etiqueta
+                    plt.xticks(y_pos, [r'$' + var + '$' for var in bars])  # LaTeX en las etiquetas del eje x
+                    plt.title(r"Análisis de Sensibilidad Local ($\%$)", fontsize=14)  # Título en LaTeX
+                    plt.ylabel(r"Sensibilidad ($\%$)", fontsize=12)  # Etiqueta del eje y en LaTeX
+                    plt.xlabel(r"Variables de Diseño", fontsize=12)  # Etiqueta del eje x en LaTeX
+                    plt.legend()
+                    fig.autofmt_xdate()
+                    if id_config is not None:
+                        name_file = config.model_name + "_" + str(id_config) + "_" + method + "_" + str(n_samples_per_param)
+                    else:
+                        name_file = config.model_name + "_" + method + "_" + str(n_samples_per_param)
+                    plt.savefig(check_path(str(pathlib.Path(__file__).parent.absolute()) + "/SensitivityResults/" + config.model_name) + "/" + name_file)
+                    plt.show()
 
             plot_sensitivities(sensitivities)
 
