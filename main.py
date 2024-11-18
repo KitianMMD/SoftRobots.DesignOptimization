@@ -14,13 +14,19 @@ import pathlib
 import importlib
 import os
 
-directorio = "/home/optimizacion/SoftRobots.DesignOptimization/Models/SensorFinger/Meshes"
-#'/SoftRobots.DesignOptimization/Models/SensorFinger'
+# Obtener el directorio home del usuario actual
+home_dir = os.path.expanduser("~")
 
-try:
-  os.stat(directorio)
-except:
-  os.mkdir(directorio)
+# Construir la ruta completa a partir del home
+directorio = os.path.join(home_dir, "SoftRobots.DesignOptimization", "Models", "SensorFinger", "Meshes")
+
+# Verificar si el directorio existe, si no, crearlo
+if not os.path.exists(directorio):
+    os.makedirs(directorio)
+
+print(f"Directorio creado: {directorio}")
+
+print(directorio)
 
 
 def main(args=None):

@@ -7,7 +7,7 @@ RUN apt install -y wget unzip git locales locales-all sqlite3
 RUN locale-gen
 RUN wget https://github.com/sofa-framework/sofa/releases/download/v24.06.00/SOFA_v24.06.00_Linux.zip
 RUN unzip SOFA_v24.06.00_Linux.zip
-RUN python3.10 -m pip install pathlib importlib numpy logging plotly
+RUN python3.10 -m pip install pathlib numpy plotly
 RUN python3.10 -m pip install gmsh==4.11.1 optuna==2.10.0 SQLALchemy==1.4.44 matplotlib
 RUN git clone https://github.com/Ignaciojc1/SoftRobots.DesignOptimization.git /home/ci/SoftRobots.DesignOptimization
 
