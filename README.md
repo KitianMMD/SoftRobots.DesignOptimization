@@ -137,6 +137,7 @@ python3 main.py -n SensorFinger -op 0 -sd -so fo
 
 Once launched, a command prompt will ask you the id of the design to simulate.
 # Parallelization
+This step is optional, only if you want to perform parallelization.
 - Docker
   
 
