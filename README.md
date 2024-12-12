@@ -136,7 +136,10 @@ python3 main.py -n SensorFinger -op 0 -sd -so fo
 - -so, --simulation_option: simulation option. For choosing a specific design encountered during design optimization, we have to specify the option "fo" [Optional, default=ba]
 
 Once launched, a command prompt will ask you the id of the design to simulate.
-
+# Parallelization
+- Docker
+- Singularity
+- Netflow-Slurm
 
 # Examples <a name="examples"></a>
 
