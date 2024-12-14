@@ -139,14 +139,37 @@ Once launched, a command prompt will ask you the id of the design to simulate.
 # Parallelization
 This step is optional, included only for those who wish to enhance computational performance during design optimization and simulation. Parallelization allows multiple processes to run concurrently, reducing total runtime and enabling efficient resource utilization. In this project, parallelization has been implemented specifically for the Design Optimization step.
 ## Virtualization
+Virtualization plays a crucial role in managing isolated and reproducible environments for the optimization framework. Two popular tools for virtualization used in this project are Docker and Singularity.
+
 - Docker
-  
-  
+Docker provides lightweight containers to encapsulate the software environment, ensuring consistency across different systems. For this project, a Dockerfile is available, which sets up all necessary dependencies and configurations for running the SOFA framework and the optimization toolkit.
 
+Key features of the Docker setup:
+
+Base image: sofaframework/sofabuilder_ubuntu:latest.
+
+Installation of required libraries such as sqlite3, gmsh, and Python dependencies (numpy, plotly, etc.).
+
+Integration of the SOFA framework (version v24.06.00).
+
+Python path adjustments for compatibility with the SOFA plugins. 
+  
 - Singularity
+Singularity is another virtualization tool, often preferred in high-performance computing (HPC) environments due to its compatibility with shared systems and ease of deployment without administrative privileges. The Singularity definition file provided in this repository mirrors the setup of the Docker image, ensuring parity between the two virtualization approaches.
 
+Key features of the Singularity setup:
 
-- Netflow-Slurm
+Base image: sofaframework/sofabuilder_ubuntu:latest.
+
+Comprehensive setup of locales, dependencies, and Python packages.
+
+Configuration of paths for SOFA binaries and Python modules.
+
+By offering both Docker and Singularity support, this toolkit ensures flexibility and compatibility with a wide range of user requirements.
+
+#Netflow
+
+Netflow combined with Slurm allows for efficient job scheduling and resource allocation in distributed computing environments. This setup will be particularly useful for managing multiple parallel optimization tasks on a cluster.
 
 
 # Examples <a name="examples"></a>
