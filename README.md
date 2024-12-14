@@ -29,7 +29,7 @@ More examples will be available in the future.
 
 # Installation <a name="installation"></a>
 
-## Python requirements
+### Python requirements
 Python3 is needed to make use of toolbox.
 The required basic python libraries can be installed with the following bash command:
 ```bash
@@ -44,12 +44,12 @@ Both this libraries can be installed using the following bash command:
 ```bash
 pip install gmsh==4.11.1 optuna==2.10.0 SQLALchemy==1.4.44 matplotlib
 ```
-## SQLITE3
+### SQLITE3
 To be able to visualize the optimization simulations, it is necessary to have the sqlite3 dependency installed, and for that, you need to run the following command in the terminal.
 ```bash
 sudo apt-get install sqlite3
 ```
-## SOFA and mandatory plugins
+### SOFA and mandatory plugins
 This toolbox was tested with the SOFA v22.12 installation. 
 The following plugins are mandatory:
 * [SofaPython3](https://github.com/sofa-framework/SofaPython3)
@@ -61,7 +61,7 @@ After running the runSofa command in the terminal, we need to go to the top left
 
 Please refer to the following [tutorial](https://www.sofa-framework.org/community/doc/getting-started/build/linux/) for a complete overview of the installation process.
 
-## LaTeX
+### LaTeX
 
 To ensure that the graphics use consistent fonts and render correctly in documents, you may need to install LaTeX along with its required packages. Run the following command:
 ```bash
@@ -69,7 +69,7 @@ sudo apt-get install texlive texlive-latex-extra texlive-fonts-recommended dvipn
 ```
 This will install the necessary tools and fonts for generating high-quality PDF documents and graphics with uniform fonts in LaTeX.
 
-## Bash
+### Bash
 
 To run the simulations, we need to add the Python path in the Linux shell. We will do this as follows:
 
