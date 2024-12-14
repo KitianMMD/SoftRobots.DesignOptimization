@@ -137,8 +137,10 @@ python3 main.py -n SensorFinger -op 0 -sd -so fo
 
 Once launched, a command prompt will ask you the id of the design to simulate.
 # Parallelization
-This step is optional, only if you want to perform parallelization.
+This step is optional, included only for those who wish to enhance computational performance during design optimization and simulation. Parallelization allows multiple processes to run concurrently, reducing total runtime and enabling efficient resource utilization. In this project, parallelization has been implemented specifically for the Design Optimization step.
+## Virtualization
 - Docker
+  
   
 
 - Singularity
