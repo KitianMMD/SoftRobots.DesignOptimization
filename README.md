@@ -167,11 +167,42 @@ Key features of the Singularity setup:
 
 By offering both Docker and Singularity support, this toolkit ensures flexibility and compatibility with a wide range of user requirements.
 
-## Netflow
+## Nextflow
 
-Netflow combined with Slurm allows for efficient job scheduling and resource allocation in distributed computing environments. This setup will be particularly useful for managing multiple parallel optimization tasks on a cluster.
+This Nextflow script is designed to run parallelized processes in a computing cluster using Singularity containers. It is part of a workflow for optimizing soft robotics designs. Below is a detailed explanation:
 
+Workflow Overview:
+1.Parameter Parallelization:
 
+-The script defines a set of parameters (param_sets), where each specifies options for a distinct simulation.
+-These parameters are processed independently and in parallel, leveraging the efficiency of multi-core or multi-node environments.
+
+2.Process processFiles:
+
+-Employs a Singularity container named test1.sif to encapsulate the necessary environment and dependencies.
+-Executes a Python script (main.py) with the specified parameters.
+-Outputs the results of each execution into uniquely named log files (processed_<param>.log), based on the input parameters.
+
+3.Modular Configuration:
+
+-Channel.from(param_sets): Creates a channel to supply parameters to the processFiles process.
+-Idempotent execution: Each simulation is independent, with no dependencies between processes.
+
+4.Benefits of the Design:
+
+-Portability: By leveraging Singularity, the script ensures portability and compatibility across different operating systems in the cluster.
+-Simple and Efficient Parallelization: Through Nextflow, each simulation is executed as an independent parallel task (task-level parallelization).
+-Result Logging: Outputs are saved in structured log files, ensuring traceability for each simulation.
+
+5.Requirements:
+Nextflow DSL2 enabled.
+Singularity image (test1.sif) located in the specified directory.
+The main.py file is properly configured to handle input parameters.
+
+To execute the workflow, run the following command:
+```bash
+nextflow run <script_name>.nf
+```
 # Examples <a name="examples"></a>
 
 ## Gmsh Tutorial for Parametric Construction of a Deformable Pawn with Accordion Structure and Internal Cavity <a name="gmshtutorial"></a> 
