@@ -171,15 +171,15 @@ By offering both Docker and Singularity support, this toolkit ensures flexibilit
 
 This Nextflow script is designed to run parallelized processes in a computing cluster using Singularity containers. It is part of a workflow for optimizing soft robotics designs. Below is a detailed explanation:
 
-###Workflow Overview:
+### Workflow Overview:
 
-1.Parameter Parallelization:
+1. Parameter Parallelization:
 
 - The script defines a set of parameters (param_sets), where each specifies options for a distinct simulation.
 
 - These parameters are processed independently and in parallel, leveraging the efficiency of multi-core or multi-node environments.
 
-2.Process processFiles:
+2. Process processFiles:
 
 - Employs a Singularity container named test1.sif to encapsulate the necessary environment and dependencies.
 
@@ -187,13 +187,13 @@ This Nextflow script is designed to run parallelized processes in a computing cl
 
 - Outputs the results of each execution into uniquely named log files (processed_<param>.log), based on the input parameters.
 
-3.Modular Configuration:
+3. Modular Configuration:
 
 - Channel.from(param_sets): Creates a channel to supply parameters to the processFiles process.
 
 - Idempotent execution: Each simulation is independent, with no dependencies between processes.
 
-4.Benefits of the Design:
+4. Benefits of the Design:
 
 - Portability: By leveraging Singularity, the script ensures portability and compatibility across different operating systems in the cluster.
 
@@ -201,7 +201,7 @@ This Nextflow script is designed to run parallelized processes in a computing cl
 
 - Result Logging: Outputs are saved in structured log files, ensuring traceability for each simulation.
 
-5.Requirements:
+5. Requirements:
 - Nextflow DSL2 enabled.
 
 - Singularity image (test1.sif) located in the specified directory.
