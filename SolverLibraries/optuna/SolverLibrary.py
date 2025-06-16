@@ -296,10 +296,12 @@ class SolverLibrary(BaseSolverLibrary):
         """
         # Reload a past study or create a new one
         optuna.logging.get_logger("optuna").addHandler(logging.StreamHandler(sys.stdout))
+        journal_storage = optuna.storages.JournalStorage(optuna.storages.journal.JournalFileBackend(storage_name))
+
         try: 
-            study = optuna.create_study(study_name=problem_name, sampler = sampler, directions=directions, storage=storage_name)         
+            study = optuna.create_study(study_name=problem_name, sampler = sampler, directions=directions, storage=journal_storage)         
         except: 
-            study = optuna.create_study(study_name=problem_name, sampler = sampler, directions=directions, storage=storage_name, load_if_exists=True)     
+            study = optuna.create_study(study_name=problem_name, sampler = sampler, directions=directions, storage=journal_storage, load_if_exists=True)     
         return study
 
     def sample_variables(self, trial, config):

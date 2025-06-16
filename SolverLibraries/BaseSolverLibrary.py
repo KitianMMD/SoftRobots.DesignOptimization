@@ -8,7 +8,6 @@ __copyright__ = "(c) 2020, Inria"
 __date__ = "Nov 02 2022"
 
 
-
 class BaseSolverLibrary(object):
 
     def __init__(self, *args, **kwargs):
