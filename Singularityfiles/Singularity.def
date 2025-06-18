@@ -24,7 +24,7 @@ From: sofaframework/sofabuilder_ubuntu:latest
         numpy \
         plotly \
         gmsh==4.11.1 \
-        optuna==2.10.0 \
+        optuna==4.0.0 \
         SQLAlchemy==1.4.44 \
         matplotlib
     
