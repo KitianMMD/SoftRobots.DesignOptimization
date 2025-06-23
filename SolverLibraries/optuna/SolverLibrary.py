@@ -67,7 +67,7 @@ class SolverLibrary(BaseSolverLibrary):
         
         # Retrieve trials history
         trials = problem.trials        
-        n_complete = len([t for t in trials if t.state == optuna.structs.TrialState.COMPLETE])
+        n_complete = len([t for t in trials if t.state == optuna.trial.TrialState.COMPLETE])
         print('Num. of complete trials:', n_complete)        
         t = [i for i in range(n_complete)]
         objectives_data = config.get_objective_data()
@@ -161,7 +161,7 @@ class SolverLibrary(BaseSolverLibrary):
         all_vars_history = []
         min_order_of_mag = np.inf
         for i in range(n_design_variables):
-            var_history = [trial.params[list(design_variables.keys())[i]] for trial in trials if trial.state == optuna.structs.TrialState.COMPLETE]
+            var_history = [trial.params[list(design_variables.keys())[i]] for trial in trials if trial.state == optuna.trial.TrialState.COMPLETE]
             all_vars_history.append(var_history)
             min_order_of_mag = order_of_mag(min(min_order_of_mag, min(var_history)))
 
