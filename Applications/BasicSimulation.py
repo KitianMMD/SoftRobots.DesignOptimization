@@ -48,7 +48,9 @@ def simulate(config, design_choice = "baseline", id_config = None, solver_librar
             problem_name = config.model_name + "_" + id_config + "_" + solver_library_name + "_" + solver_name
         else:
             problem_name = config.model_name + "_" + solver_library_name + "_" + solver_name
-        storage_name = "sqlite:///{}.db".format(str(pathlib.Path(__file__).parent.absolute())+"/OptimizationResults/" + config.model_name + "/" + problem_name)
+        #storage_name = "sqlite:///{}.db".format(str(pathlib.Path(__file__).parent.absolute())+"/OptimizationResults/" + config.model_name + "/" + problem_name)
+        
+        storage_name = "{}".format(str(pathlib.Path(__file__).parent.absolute())+"/OptimizationResults/" + config.model_name) + "/" + problem_name + ".log"
         
         # Load solver library
         solver_lib = importlib.import_module("SolverLibraries."+ solver_library_name + ".SolverLibrary")
