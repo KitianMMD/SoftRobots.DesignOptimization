@@ -14,21 +14,6 @@ __date__ = "Oct 28 2022"
 import argparse
 import pathlib
 import importlib
-import os
-
-# Obtener el directorio home del usuario actual
-home_dir = os.path.expanduser("~")
-
-# Construir la ruta completa a partir del home
-directorio = os.path.join(home_dir, "SoftRobots.DesignOptimization", "Models", "SensorFinger", "Meshes")
-
-# Verificar si el directorio existe, si no, crearlo
-if not os.path.exists(directorio):
-    os.makedirs(directorio)
-
-print(f"Directorio creado: {directorio}")
-
-print(directorio)
 
 
 def main(args=None):
@@ -83,6 +68,8 @@ def main(args=None):
     config_lib = importlib.import_module("Models."+ args.name+".Config")
     Config = config_lib.Config()
     id_config = None
+
+
     if args.optimization_problem:
         optimization_config_link = pathlib.Path(str(pathlib.Path(__file__).parent.absolute())+"/Models/"+ args.name+"/OptimizationConfigs/Config_" + args.optimization_problem + ".py")
         if pathlib.Path.exists(optimization_config_link):
@@ -93,10 +80,12 @@ def main(args=None):
         else:
             print("Please enter an existing optimization problem config number. Loading base config instead.")
     
+
     if args.solver_library not in implemented_solvers.keys():
             print("Please choose a valid solver library. Available solver library are " + str(list(implemented_solvers.keys())))
     elif args.solver_name not in implemented_solvers[args.solver_library]:
             print("Please choose a solver available in the solver library " + args.solver_library + ". Available solvers are " + str(implemented_solvers[args.solver_library]))
+
 
     if args.sensitivity_analysis: # Analyze the sensitivity of a set of design optimization objectives relative to each design variables.
         print("Starting sensitivity analysis.")
@@ -107,6 +96,8 @@ def main(args=None):
             print("Number of samples per parameter must be more than 0.")
         else:
             sensitivity_analysis_lib.analyse_sensitivity(Config, id_config=id_config, n_samples_per_param=int(args.n_samples_per_param), method=args.sa_method, plot_results=not args.no_plot)
+
+
     if args.optimization: # Optimize a design
         print("Starting design optimization.")
         optimization_lib = importlib.import_module("Applications.Optimize")
@@ -114,6 +105,8 @@ def main(args=None):
             print("Number of optimization iteration must be more than 0.")
         else:
             optimization_lib.optimize(Config, id_config=id_config, n_iter=args.n_iter, solver_library_name=args.solver_library, solver_name=args.solver_name, plot_results=not args.no_plot)
+
+
     if args.simulate_design: # Simulate design and visualize it in SOFA GUI
         print("Starting design simulation and visualization in SOFA GUI")
         simulate_lib = importlib.import_module("Applications.BasicSimulation")
