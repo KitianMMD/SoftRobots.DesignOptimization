@@ -33,6 +33,10 @@ def main(args=None):
     parser.add_argument('--name', '-n', help='Load a model: -n model_name')
     parser.add_argument('--optimization_problem', '-op', help='Identification number of the optimization problem for a given design: -op id.', default=None)
 
+    ### Choose database
+    database_options = ['Sqlite3', 'Journal']
+    parser.add_argument('--data_base', '-db', help='Database option: -db. By default, use Sqlite3', default="Sqlite3", choices=database_options)
+    
     ### Choose application and its parameters
 
     # Sensitivity Analysis
@@ -69,7 +73,6 @@ def main(args=None):
     Config = config_lib.Config()
     id_config = None
 
-
     if args.optimization_problem:
         optimization_config_link = pathlib.Path(str(pathlib.Path(__file__).parent.absolute())+"/Models/"+ args.name+"/OptimizationConfigs/Config_" + args.optimization_problem + ".py")
         if pathlib.Path.exists(optimization_config_link):
@@ -80,12 +83,10 @@ def main(args=None):
         else:
             print("Please enter an existing optimization problem config number. Loading base config instead.")
     
-
     if args.solver_library not in implemented_solvers.keys():
             print("Please choose a valid solver library. Available solver library are " + str(list(implemented_solvers.keys())))
     elif args.solver_name not in implemented_solvers[args.solver_library]:
             print("Please choose a solver available in the solver library " + args.solver_library + ". Available solvers are " + str(implemented_solvers[args.solver_library]))
-
 
     if args.sensitivity_analysis: # Analyze the sensitivity of a set of design optimization objectives relative to each design variables.
         print("Starting sensitivity analysis.")
@@ -97,23 +98,20 @@ def main(args=None):
         else:
             sensitivity_analysis_lib.analyse_sensitivity(Config, id_config=id_config, n_samples_per_param=int(args.n_samples_per_param), method=args.sa_method, plot_results=not args.no_plot)
 
-
     if args.optimization: # Optimize a design
         print("Starting design optimization.")
         optimization_lib = importlib.import_module("Applications.Optimize")
         if int(args.n_iter) < 0:
             print("Number of optimization iteration must be more than 0.")
         else:
-            optimization_lib.optimize(Config, id_config=id_config, n_iter=args.n_iter, solver_library_name=args.solver_library, solver_name=args.solver_name, plot_results=not args.no_plot)
-
+            optimization_lib.optimize(Config, id_config=id_config, n_iter=args.n_iter, solver_library_name=args.solver_library, solver_name=args.solver_name, data_base=args.data_base, plot_results=not args.no_plot)
 
     if args.simulate_design: # Simulate design and visualize it in SOFA GUI
         print("Starting design simulation and visualization in SOFA GUI")
         simulate_lib = importlib.import_module("Applications.BasicSimulation")
         if args.simulation_option not in simulation_options:
             args.simulation_option = "ba"
-        simulate_lib.simulate(Config, id_config=id_config, design_choice = args.simulation_option, solver_library_name=args.solver_library, solver_name=args.solver_name)       
-
+        simulate_lib.simulate(Config, data_base = args.data_base, id_config=id_config, design_choice = args.simulation_option, solver_library_name=args.solver_library, solver_name=args.solver_name)       
 
 
 if __name__ == "__main__":

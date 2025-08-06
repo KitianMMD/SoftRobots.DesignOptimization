@@ -14,7 +14,7 @@ import pathlib
 
 from .FitnessEvaluationTools import wrap_evaluate_fitness
 
-def optimize(config, id_config, n_iter, solver_library_name, solver_name, plot_results = True): 
+def optimize(config, id_config, n_iter, solver_library_name, solver_name, data_base ,plot_results = True): 
     """
     Optimize design variables for a given problem
     ----------
@@ -45,8 +45,14 @@ def optimize(config, id_config, n_iter, solver_library_name, solver_name, plot_r
         problem_name = config.model_name + "_" + id_config + "_" + solver_library_name + "_" + solver_name
     else:
         problem_name = config.model_name + "_" + solver_library_name + "_" + solver_name
-    # storage_name = "sqlite:///{}.db".format(check_path(str(pathlib.Path(__file__).parent.absolute())+"/OptimizationResults/" + config.model_name) + "/" + problem_name)
-    storage_name = "{}.log".format(check_path(str(pathlib.Path(__file__).parent.absolute())+"/OptimizationResults/" + config.model_name) + "/" + problem_name)
+
+    # Set storage name using chosen database option
+
+    if data_base == 'Sqlite3':
+        storage_name = "sqlite:///{}.db".format(check_path(str(pathlib.Path(__file__).parent.absolute())+"/OptimizationResults/" + config.model_name) + "/" + problem_name)
+    elif data_base == 'Journal':
+        storage_name = "{}.log".format(check_path(str(pathlib.Path(__file__).parent.absolute())+"/OptimizationResults/" + config.model_name) + "/" + problem_name)
+    
     # Optimization using chosen solver library
     solver_lib = importlib.import_module("SolverLibraries."+ solver_library_name + ".SolverLibrary")
     solver = solver_lib.SolverLibrary(solver_library_name = solver_library_name, solver_name = solver_name)
@@ -61,7 +67,6 @@ def optimize(config, id_config, n_iter, solver_library_name, solver_name, plot_r
         from matplotlib import rc
         rc('text', usetex=True)
         solver.plot_results(problem_name, storage_name, config)
-
 
 
 def check_path(path):
