@@ -104,7 +104,7 @@ def main(args=None):
         if int(args.n_iter) < 0:
             print("Number of optimization iteration must be more than 0.")
         else:
-            optimization_lib.optimize(Config, id_config=id_config, n_iter=args.n_iter, solver_library_name=args.solver_library, solver_name=args.solver_name, data_base=args.data_base, plot_results=not args.no_plot)
+            optimization_lib.optimize(Config, id_config=id_config, n_iter=args.n_iter, solver_library_name=args.solver_library, solver_name=args.solver_name, data_base_option=args.data_base, plot_results=not args.no_plot)
 
     if args.simulate_design: # Simulate design and visualize it in SOFA GUI
         print("Starting design simulation and visualization in SOFA GUI")

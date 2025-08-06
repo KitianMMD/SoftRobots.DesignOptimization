@@ -14,7 +14,7 @@ import pathlib
 
 from .FitnessEvaluationTools import wrap_evaluate_fitness
 
-def optimize(config, id_config, n_iter, solver_library_name, solver_name, data_base ,plot_results = True): 
+def optimize(config, id_config, n_iter, solver_library_name, solver_name, data_base_option ,plot_results = True): 
     """
     Optimize design variables for a given problem
     ----------
@@ -48,15 +48,15 @@ def optimize(config, id_config, n_iter, solver_library_name, solver_name, data_b
 
     # Set storage name using chosen database option
 
-    if data_base == 'Sqlite3':
+    if data_base_option == 'Sqlite3':
         storage_name = "sqlite:///{}.db".format(check_path(str(pathlib.Path(__file__).parent.absolute())+"/OptimizationResults/" + config.model_name) + "/" + problem_name)
-    elif data_base == 'Journal':
+    elif data_base_option == 'Journal':
         storage_name = "{}.log".format(check_path(str(pathlib.Path(__file__).parent.absolute())+"/OptimizationResults/" + config.model_name) + "/" + problem_name)
     
     # Optimization using chosen solver library
     solver_lib = importlib.import_module("SolverLibraries."+ solver_library_name + ".SolverLibrary")
     solver = solver_lib.SolverLibrary(solver_library_name = solver_library_name, solver_name = solver_name)
-    solver.optimize(problem_name, storage_name, config, n_iter, evaluate_fitness_wrapper)
+    solver.optimize(problem_name, storage_name, data_base_option, config, n_iter, evaluate_fitness_wrapper)
     
     # Display best results
     solver.display_results(problem_name, storage_name, config)

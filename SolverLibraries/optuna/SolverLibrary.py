@@ -30,9 +30,9 @@ class SolverLibrary(BaseSolverLibrary):
     def get_all_solver_names(self):
         return ["evolutionary", "bayesian"]
 
-    def optimize(self, problem_name, storage_name, config, n_iter, evaluate_fitness):   
+    def optimize(self, problem_name, storage_name, data_base_option, config, n_iter, evaluate_fitness):   
         # Init optimization problem
-        problem = self.init_problem(problem_name, storage_name, config)
+        problem = self.init_problem(problem_name, storage_name, data_base_option,config)
 
         # Optimize
         self.evaluate_fitness = evaluate_fitness
@@ -217,7 +217,7 @@ class SolverLibrary(BaseSolverLibrary):
         print("Selected best_params:", best_parameters)
         return best_parameters
 
-    def init_problem(self, problem_name, storage_name, config):
+    def init_problem(self, problem_name, storage_name, data_base_option, config):
         """
         Init optimziation problem.
         ----------
@@ -243,7 +243,7 @@ class SolverLibrary(BaseSolverLibrary):
 
         # Create/Load optimization problem     
         self.objective_directions = [objectives_data[obj][0] for obj in objectives_data]  
-        problem = self.create_problem(problem_name, sampler, self.objective_directions, storage_name)
+        problem = self.create_problem(problem_name, sampler, self.objective_directions, storage_name, data_base_option)
 
         return problem
 
@@ -274,7 +274,7 @@ class SolverLibrary(BaseSolverLibrary):
                 sampler = optuna.samplers.NSGAIISampler(population_size = 50, mutation_prob=None, crossover_prob=0.9, swapping_prob=0.5)   
         return sampler 
 
-    def create_problem(self, problem_name, sampler, directions, storage_name):
+    def create_problem(self, problem_name, sampler, directions, storage_name, data_base_option):
         """
         This function implements initialization of an optimization problem.
         ----------
@@ -296,12 +296,16 @@ class SolverLibrary(BaseSolverLibrary):
         """
         # Reload a past study or create a new one
         optuna.logging.get_logger("optuna").addHandler(logging.StreamHandler(sys.stdout))
-        journal_storage = optuna.storages.JournalStorage(optuna.storages.journal.JournalFileBackend(storage_name))
+
+        if data_base_option == "Sqlite3":
+            pass
+        elif data_base_option == "Journal":
+            storage_name = optuna.storages.JournalStorage(optuna.storages.journal.JournalFileBackend(storage_name))
 
         try: 
-            study = optuna.create_study(study_name=problem_name, sampler = sampler, directions=directions, storage=journal_storage)         
+            study = optuna.create_study(study_name=problem_name, sampler = sampler, directions=directions, storage=storage_name)         
         except: 
-            study = optuna.create_study(study_name=problem_name, sampler = sampler, directions=directions, storage=journal_storage, load_if_exists=True)     
+            study = optuna.create_study(study_name=problem_name, sampler = sampler, directions=directions, storage=storage_name, load_if_exists=True)     
         return study
 
     def sample_variables(self, trial, config):
