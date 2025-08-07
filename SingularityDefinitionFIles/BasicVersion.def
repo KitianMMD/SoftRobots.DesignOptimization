@@ -1,9 +1,14 @@
+# ===========================
+# Description : Singularity definition file (.def) to create a singularity image file (.sif) for heuristic-based design optimization.
+# Authors : Gabriel Díaz, María Droguett, Ignacio Jiménez 
+# Updated by : Aleister Donoso, Cristian Acevedo
+# Date : Jun 18 2025
+# ===========================
+
 Bootstrap: docker 
 From: sofaframework/sofabuilder_ubuntu:latest
 
 %post
-
-    export MYVARIABLE=0
 
     apt update && apt install -y \
     wget\
@@ -24,11 +29,9 @@ From: sofaframework/sofabuilder_ubuntu:latest
         numpy \
         plotly \
         gmsh==4.11.1 \
-        optuna==2.10.0 \
+        optuna==4.0.0 \
         SQLAlchemy==1.4.44 \
         matplotlib
-    
-    git clone https://github.com/Ignaciojc1/SoftRobots.DesignOptimization.git /home/ci/SoftRobots.DesignOptimization
 
 %environment 
 
