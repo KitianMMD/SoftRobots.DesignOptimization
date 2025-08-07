@@ -68,7 +68,7 @@ def optimize(config, id_config, n_iter, solver_library_name, solver_name, databa
         import matplotlib.pyplot as plt
         from matplotlib import rc
         rc('text', usetex=True)
-        solver.plot_results(problem_name, storage_name, config)
+        solver.plot_results(problem_name, storage_name, database_option, config)
 
 
 def check_path(path):

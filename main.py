@@ -111,7 +111,7 @@ def main(args=None):
         simulate_lib = importlib.import_module("Applications.BasicSimulation")
         if args.simulation_option not in simulation_options:
             args.simulation_option = "ba"
-        simulate_lib.simulate(Config, database = args.database, id_config=id_config, design_choice = args.simulation_option, solver_library_name=args.solver_library, solver_name=args.solver_name)       
+        simulate_lib.simulate(Config, database_option = args.database, id_config=id_config, design_choice = args.simulation_option, solver_library_name=args.solver_library, solver_name=args.solver_name)       
 
 
 if __name__ == "__main__":
