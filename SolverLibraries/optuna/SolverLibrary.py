@@ -32,7 +32,7 @@ class SolverLibrary(BaseSolverLibrary):
 
     def optimize(self, problem_name, storage_name, database_option, config, n_iter, evaluate_fitness):   
         # Init optimization problem
-        problem = self.init_problem(problem_name, storage_name, database_option,config)
+        problem = self.init_problem(problem_name, storage_name, database_option, config)
 
         # Optimize
         self.evaluate_fitness = evaluate_fitness

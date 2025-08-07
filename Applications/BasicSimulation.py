@@ -62,9 +62,9 @@ def simulate(config, database_option, design_choice = "baseline", id_config = No
 
         # Get parameters
         if design_choice == "be":
-            parameters = solver.get_best_results(problem_name, storage_name, config)
+            parameters = solver.get_best_results(problem_name, storage_name, database_option, config)
         elif design_choice == "fo":
-            parameters = solver.get_result_from_id(problem_name, storage_name, config)
+            parameters = solver.get_result_from_id(problem_name, storage_name, database_option, config)
 
         # Set parameters as design variables
         config.set_design_variables(list(map(list, parameters.items())))
