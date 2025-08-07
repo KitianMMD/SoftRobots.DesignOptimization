@@ -11,13 +11,15 @@ import importlib
 import pathlib 
 import os
                 
-def simulate(config, data_base, design_choice = "baseline", id_config = None, solver_library_name = None, solver_name = None): 
+def simulate(config, database_option, design_choice = "baseline", id_config = None, solver_library_name = None, solver_name = None): 
     """
     Simulated a design and visualize it in SOFA GUI.
     Parameters
     ----------
     config: Config
         Config of the chosen problem
+    database_option : str
+        Chosen option to manage the database 
     design_choice: str among {ba, fo, be}
         Select design to simulate
     id_config: str
@@ -49,9 +51,9 @@ def simulate(config, data_base, design_choice = "baseline", id_config = None, so
         else:
             problem_name = config.model_name + "_" + solver_library_name + "_" + solver_name
         
-        if data_base == "Sqlite3":
+        if database_option == "Sqlite3":
             storage_name = "sqlite:///{}.db".format(str(pathlib.Path(__file__).parent.absolute())+"/OptimizationResults/" + config.model_name + "/" + problem_name)
-        elif data_base == 'Journal':
+        elif database_option == 'Journal':
             storage_name = "{}".format(str(pathlib.Path(__file__).parent.absolute())+"/OptimizationResults/" + config.model_name) + "/" + problem_name + ".log"
         
         # Load solver library

@@ -35,7 +35,7 @@ def main(args=None):
 
     ### Choose database
     database_options = ['Sqlite3', 'Journal']
-    parser.add_argument('--data_base', '-db', help='Database option: -db. By default, use Sqlite3', default="Sqlite3", choices=database_options)
+    parser.add_argument('--database', '-db', help='Database option: -db. By default, use Sqlite3', default="Sqlite3", choices=database_options)
     
     ### Choose application and its parameters
 
@@ -104,14 +104,14 @@ def main(args=None):
         if int(args.n_iter) < 0:
             print("Number of optimization iteration must be more than 0.")
         else:
-            optimization_lib.optimize(Config, id_config=id_config, n_iter=args.n_iter, solver_library_name=args.solver_library, solver_name=args.solver_name, data_base_option=args.data_base, plot_results=not args.no_plot)
+            optimization_lib.optimize(Config, id_config=id_config, n_iter=args.n_iter, solver_library_name=args.solver_library, solver_name=args.solver_name, database_option=args.database, plot_results=not args.no_plot)
 
     if args.simulate_design: # Simulate design and visualize it in SOFA GUI
         print("Starting design simulation and visualization in SOFA GUI")
         simulate_lib = importlib.import_module("Applications.BasicSimulation")
         if args.simulation_option not in simulation_options:
             args.simulation_option = "ba"
-        simulate_lib.simulate(Config, data_base = args.data_base, id_config=id_config, design_choice = args.simulation_option, solver_library_name=args.solver_library, solver_name=args.solver_name)       
+        simulate_lib.simulate(Config, database = args.database, id_config=id_config, design_choice = args.simulation_option, solver_library_name=args.solver_library, solver_name=args.solver_name)       
 
 
 if __name__ == "__main__":

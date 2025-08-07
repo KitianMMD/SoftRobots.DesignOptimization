@@ -30,18 +30,18 @@ class SolverLibrary(BaseSolverLibrary):
     def get_all_solver_names(self):
         return ["evolutionary", "bayesian"]
 
-    def optimize(self, problem_name, storage_name, data_base_option, config, n_iter, evaluate_fitness):   
+    def optimize(self, problem_name, storage_name, database_option, config, n_iter, evaluate_fitness):   
         # Init optimization problem
-        problem = self.init_problem(problem_name, storage_name, data_base_option,config)
+        problem = self.init_problem(problem_name, storage_name, database_option,config)
 
         # Optimize
         self.evaluate_fitness = evaluate_fitness
         compute_objectives_wrapper = lambda trial: self.compute_objectives(trial, config)
         problem.optimize(compute_objectives_wrapper, n_trials = int(n_iter)) 
 
-    def display_results(self, problem_name, storage_name, config):
+    def display_results(self, problem_name, storage_name, database_option, config):
         # Reload optimization problem
-        problem = self.init_problem(problem_name, storage_name, config)
+        problem = self.init_problem(problem_name, storage_name, database_option, config)
 
         # Display best results
         objectives_data = config.get_objective_data()
@@ -58,12 +58,12 @@ class SolverLibrary(BaseSolverLibrary):
             print('Best Objectives: ' + ' '.join(map(str, [best_trials[i].values for i in range(len(best_trials))])))
             # print('Best hyperparameters: ' + ' '.join(map(str, [best_trials[i].params for i in range(len(best_trials))])))
 
-    def plot_results(self, problem_name, storage_name, config):
+    def plot_results(self, problem_name, storage_name, database_option, config):
         import matplotlib.pyplot as plt
         from matplotlib.pyplot import cm
 
         # Reload optimization problem
-        problem = self.init_problem(problem_name, storage_name, config)
+        problem = self.init_problem(problem_name, storage_name, database_option, config)
         
         # Retrieve trials history
         trials = problem.trials        
@@ -180,18 +180,18 @@ class SolverLibrary(BaseSolverLibrary):
         plt.legend()
         plt.show()        
     
-    def get_result_from_id(self, problem_name, storage_name, config):
+    def get_result_from_id(self, problem_name, storage_name, database_option, config):
         # Reload optimization problem
-        problem = self.init_problem(problem_name, storage_name, config)
+        problem = self.init_problem(problem_name, storage_name, database_option, config)
 
         # Ask user choice
         trials = problem.trials
         chosen_id = int(input("\nPlease pick the id of the chosen design between 0 and " + str(len(trials)) + ":"))
         return trials[chosen_id].params
 
-    def get_best_results(self, problem_name, storage_name, config):
+    def get_best_results(self, problem_name, storage_name, database_option, config):
         # Reload optimization problem
-        problem = self.init_problem(problem_name, storage_name, config)
+        problem = self.init_problem(problem_name, storage_name, database_option, config)
 
         # Get best results
         objectives_data = config.get_objective_data()
@@ -217,7 +217,7 @@ class SolverLibrary(BaseSolverLibrary):
         print("Selected best_params:", best_parameters)
         return best_parameters
 
-    def init_problem(self, problem_name, storage_name, data_base_option, config):
+    def init_problem(self, problem_name, storage_name, database_option, config):
         """
         Init optimziation problem.
         ----------
@@ -227,6 +227,8 @@ class SolverLibrary(BaseSolverLibrary):
             Name given to the optimization problem
         storage_name: str
             Path to the database where acquired data are stored
+        database_option : str
+            Chosen option to manage the database  
         config: Config
             Config class describing the optimization problem
         ----------
@@ -243,7 +245,7 @@ class SolverLibrary(BaseSolverLibrary):
 
         # Create/Load optimization problem     
         self.objective_directions = [objectives_data[obj][0] for obj in objectives_data]  
-        problem = self.create_problem(problem_name, sampler, self.objective_directions, storage_name, data_base_option)
+        problem = self.create_problem(problem_name, sampler, self.objective_directions, storage_name, database_option)
 
         return problem
 
@@ -274,7 +276,7 @@ class SolverLibrary(BaseSolverLibrary):
                 sampler = optuna.samplers.NSGAIISampler(population_size = 50, mutation_prob=None, crossover_prob=0.9, swapping_prob=0.5)   
         return sampler 
 
-    def create_problem(self, problem_name, sampler, directions, storage_name, data_base_option):
+    def create_problem(self, problem_name, sampler, directions, storage_name, database_option):
         """
         This function implements initialization of an optimization problem.
         ----------
@@ -297,9 +299,9 @@ class SolverLibrary(BaseSolverLibrary):
         # Reload a past study or create a new one
         optuna.logging.get_logger("optuna").addHandler(logging.StreamHandler(sys.stdout))
 
-        if data_base_option == "Sqlite3":
+        if database_option == "Sqlite3":
             pass
-        elif data_base_option == "Journal":
+        elif database_option == "Journal":
             storage_name = optuna.storages.JournalStorage(optuna.storages.journal.JournalFileBackend(storage_name))
 
         try: 

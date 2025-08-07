@@ -40,7 +40,7 @@ class BaseSolverLibrary(object):
         return []
 
     @staticmethod
-    def optimize(self, problem_name, storage_name, config, n_iter, evaluate_fitness):
+    def optimize(self, problem_name, storage_name, database_option, config, n_iter, evaluate_fitness):
         """
         This function implements design optimization using provided solver and library.
         ----------
@@ -50,6 +50,8 @@ class BaseSolverLibrary(object):
             Name given to the optimization problem
         storage_name: str
             Path to the database where acquired data are stored
+        database_option : str
+            Chosen option to manage the database  
         config: Config
             Config class describing the optimization problem   
         n_iter: int
@@ -60,7 +62,7 @@ class BaseSolverLibrary(object):
         return None
     
     @staticmethod
-    def display_results(self, problem_name, storage_name, config):
+    def display_results(self, problem_name, storage_name, database_option, config):
         """
         This function display best results obtained from optimization.
         ----------
@@ -70,13 +72,15 @@ class BaseSolverLibrary(object):
             Name given to the optimization problem
         storage_name: str
             Path to the database where acquired data are stored
+        database_option : str
+            Chosen option to manage the database  
         config: Config
             Config class describing the optimization problem   
         """
         return None
 
     @staticmethod
-    def plot_results(self, problem_name, storage_name, config):
+    def plot_results(self, problem_name, storage_name, database_option, config):
        
         """
         This function plot optimization hsitory
@@ -87,13 +91,15 @@ class BaseSolverLibrary(object):
             Name given to the optimization problem
         storage_name: str
             Path to the database where acquired data are stored
+        database_option : str
+            Chosen option to manage the database  
         config: Config
             Config class describing the optimization problem   
         """
         return None
 
     @staticmethod
-    def get_result_from_id(self, problem_name, storage_name, config):
+    def get_result_from_id(self, problem_name, storage_name, database_option, config):
         """
         This function returns a chosen result obtained from an optimization problem.
         ----------
@@ -103,6 +109,8 @@ class BaseSolverLibrary(object):
             Name given to the optimization problem
         storage_name: str
             Path to the database where acquired data are stored
+        database_option : str
+            Chosen option to manage the database  
         config: Config
             Config class describing the optimization problem  
         ----------
@@ -115,7 +123,7 @@ class BaseSolverLibrary(object):
         return None
 
     @staticmethod
-    def get_best_results(self, problem_name, storage_name, config):
+    def get_best_results(self, problem_name, storage_name, database_option, config):
         """
         This function returns best results obtained from an optimization problem.
         ----------
@@ -125,6 +133,8 @@ class BaseSolverLibrary(object):
             Name given to the optimization problem
         storage_name: str
             Path to the database where acquired data are stored
+        database_option : str
+            Chosen option to manage the database  
         config: Config
             Config class describing the optimization problem  
         ----------
